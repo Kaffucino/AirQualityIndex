@@ -1,0 +1,53 @@
+USE [AirQualityIndex]
+GO
+/****** Object:  Trigger [dbo].[GET_DAILY_AVG]    Script Date: 8/26/2022 8:15:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER TRIGGER [dbo].[GET_DAILY_AVG]
+   ON [dbo].[VALUES_PM]
+   AFTER INSERT
+AS 
+BEGIN
+
+	declare @dateVar varChar(20) 
+	declare @lastWrittenDate varChar(20)
+
+	declare pmCursor cursor for select DATE from inserted
+
+	open pmCursor
+
+	fetch from pmCursor into @dateVar
+	while(@@FETCH_STATUS = 0)
+	begin
+
+	set @lastWrittenDate = (select date
+							FROM [AirQualityIndex].[dbo].[VALUES_PM]
+							order by id desc
+							offset 1 row
+							fetch next 1 row only)
+
+	if(@lastWrittenDate not like @dateVar)
+		BEGIN
+		
+		insert into dbo.AVG_VALUES   (
+		PM2_5_AVG, 
+		PM10_AVG, 
+		DATE) 
+		values
+		(dbo.COUNT_AVG_VALUE(@lastWrittenDate, '2_5'), 
+		dbo.COUNT_AVG_VALUE(@lastWrittenDate, '10'), 
+		@lastWrittenDate)
+
+
+		END
+
+	fetch from pmCursor into @dateVar
+	end
+
+	close pmCursor
+	deallocate pmCursor
+
+END

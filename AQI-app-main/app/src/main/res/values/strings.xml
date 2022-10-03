@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Filter</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Control</string>
+    <string name="title_notifications">Statistics</string>
+    <string name="airqualityindex">AirQualityIndex</string>
+    <string name="pm10">PM10:</string>
+    <string name="pm2_5">PM2.5:</string>
+    <string name="pm10_concentration">%s μg/m3</string>
+    <string name="pm2.5_concentration">%s μg/m3</string>
+    <string name="button_text">Auto Mode</string>
+    <string name="fanspeed">FanSpeed</string>
+    <string name="slow">Slow</string>
+    <string name="normal">Normal</string>
+    <string name="fast">Fast</string>
+    <string name="title_statistics">Statistics</string>
+    <string name="airquality_statistics">AirQuality Statistics</string>
+    <string name="home">Home</string>
+    <string name="title_control">Control</string>
+    <string name="find_device">Find device</string>
+    <string name="connected_to">Connected to Filter</string>
+    <string name="current_mode">Current mode: Auto</string>
+    <string name="air_quality">Air Quality:</string>
+</resources>
